@@ -4,11 +4,25 @@
   "description": "Developing a tool to scrape videos from Youtube ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "test.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mitchthebaker/yt-scrape.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
   "author": "Mitchel Baker",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
-  }
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {}
 }

@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = process.env.PORT || 5004;
+const PORT = process.env.PORT || 5000;
 const path = require('path');
 const app = express();
 
@@ -9,6 +9,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-
+	res.render('pages/index');
 });
 app.listen('Currently listening on port: ' + PORT);
