@@ -17,10 +17,11 @@ const siteData = require('../backJs/siteData');
 router.get('/', (req, res) => {
 	//urls is an Object literal holding all of our important scraping variables 
 	const urls = {
-		wsj: {
-			url: 'https://www.wjs.com/news/world',
-			h2Class: 'WSJTheme__headline_19_2KfxGdC8OTxXXrZcwJ2',
-			imgClass: 'WSJTheme__image_2srBg4oD0NrbJuMZdixIau '
+		econ: {
+			url: 'https://www.economist.com/international/',
+			aClass: 'teaser__link',
+			spanClass: 'flytitle-and-title__title',
+			imgClass: 'component-image__img'
 		},
 		apnews: {
 			url: 'https://www.apnews.com/apf-intlnews',
@@ -30,7 +31,8 @@ router.get('/', (req, res) => {
 		bbc: {
 			url: 'https://www.bbc.com/news/world',
 			spanClass: 'title-link__title-text',
-			imgClass: 'js-image-replace'
+			imgClass: 'js-image-replace',
+			titleLink: 'title-link'
 		},
 		reuters: {
 			url: 'https://www.reuters.com/news/world',
@@ -61,39 +63,68 @@ router.get('/', (req, res) => {
 				const $ = cheerio.load(html);
 				let data = [];
 
-				console.log(urls.wsj.h2Class);
-				if(urlsList[i] == urls.wsj.url.trim()) {
-					$('h3.' + urls.wsj.h2Class).find('a').each(function(i, elem) {
+				if(urlsList[i] == urls.econ.url.trim()) {
+					console.log('---------------------------------');
+					console.log('ECONOMIST BELOW');
+					console.log('---------------------------------');
+					$('a.' + urls.econ.aClass).each(function(i, elem) {
 				 		data[i] = {
-							title: $(elem).text().trim(),
-					 		url: $(elem).attr('href')
+							title: $(elem).find('span.' + urls.econ.spanClass).text().trim(),
+					 		url: 'https://www.economist.com' + $(elem).attr('href')
 					 	}
 				 	});
 					console.log(data);
 				}
 				else if(urlsList[i] == urls.apnews.url.trim()) {
-					$('a.' + urls.apnews.aClass).find('h1').each(function(i, elem) {
-				 		data[i] = {
-							title: $(elem).text().trim(),
-					 		url: $(elem).attr('href')
-					 	}
+					console.log('---------------------------------');
+					console.log('APNEWS BELOW');
+					console.log('---------------------------------');
+					$('a.' + urls.apnews.aClass).each(function(i, elem) {
+						if($('a.' + urls.apnews.aClass).attr('href').charAt(0) == '/') {
+							data[i] = {
+								title: $(elem).find('h1').text().trim(),
+						 		url: 'https://www.apnews.com' + $(elem).attr('href')
+						 	}
+						} 
+						else {
+							data[i] = {
+								title: $(elem).find('h1').text().trim(),
+						 		url: $(elem).attr('href')
+						 	}
+						}
+				 		
 				 	});
 					console.log(data);
 				}
 				else if(urlsList[i] == urls.bbc.url.trim()) {
-					$('span.' + urls.bbcnews.spanClass).each(function(i, elem) {
-				 		data[i] = {
-							title: $(elem).text().trim(),
-					 		url: $(elem).attr('href')
-					 	}
+					console.log('---------------------------------');
+					console.log('BBC BELOW');
+					console.log('---------------------------------');
+					$('span.' + urls.bbc.spanClass).each(function(i, elem) {
+						if($('a.' + urls.bbc.titleLink).attr('href').charAt(0) == '/') {
+							data[i] = {
+								title: $(elem).text().trim(),
+						 		url: 'https://www.bbc.com' + $('a.' + urls.bbc.titleLink).attr('href')
+						 	}
+						} 
+						else {
+							data[i] = {
+								title: $(elem).text().trim(),
+						 		url: $('a.' + urls.bbc.titleLink).attr('href')
+						 	}
+						}
+				 		
 				 	});
 					console.log(data);
 				}
 				else if(urlsList[i] == urls.reuters.url.trim()) {
+					console.log('---------------------------------');
+					console.log('REUTERS BELOW');
+					console.log('---------------------------------');
 					$('h2.' + urls.reuters.h2Class).each(function(i, elem) {
 				 		data[i] = {
-							title: $(elem).text().trim(),
-					 		url: $(elem).attr('href')
+							title: $(elem).find('a').text().trim(),
+					 		url: $(elem).find('a').attr('href')
 					 	}
 				 	});
 					console.log(data);
