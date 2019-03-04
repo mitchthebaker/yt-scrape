@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Righteous|Maven+Pro|Abel|Aleo|Open+Sans+Condensed:300|Oswald|Thasadith|Dosis|Kaushan+Script|Lobster');
+
+.home-container {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	background-color: #D6CCCC;
+	width: 100%;
+	/*background-color: #86ACDE;*/
+}
+
+.header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+	width: 95vw;
+	height: 40px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-top: solid white 1px;
+	border-bottom: solid white 1px;
+}
+
+.headerActivityPage-home {
+	display: flex;
+	position: fixed;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	width: 100%;
+	height: 50px;
+	z-index: 15;
+	background-color: none;
+	transition: background-color 500ms ease-in;
+}
+
+.headerActivityPage-home-scroll {
+	background-color: #E00F47;
+	/* #D6CCCC */
+}
+
+.nameOfSite {
+	margin: 0px 20px 0px 5px;
+	padding: 0px;
+	margin-right: auto;
+}
+
+.nameOfSite-a {
+	text-decoration: none;
+}
+
+.nameOfSite-h1 {
+	color: white;
+	font-size: 26px;
+	font-family: 'Kaushan Script', sans-serif;
+	font-weight: 600;
+}
+
+.newSets-navBar {
+	margin-right: 5px;
+}
+
+.siteData-ul {
+	list-style-type: none;
+	text-align: center;
+}
+
+.site-Li {
+	font-family: 'Dosis', sans-serif;
+	font-size: 14px;
+	text-align: center;
+	color: white;
+	border: 1px solid white;
+	margin: 5px;
+	padding: 5px;
+}

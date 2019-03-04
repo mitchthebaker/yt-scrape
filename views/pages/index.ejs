@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=1"/>
+		<title> Home </title>
+		<link type="text/css" rel="stylesheet" href="/stylesheets/webscraper.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+	</head>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			'use strict';
+
+			/* Object literal containing 'data', the JSON.stringified variable pulled 
+			 * from MongoDB. 'keyData' is the total number of MongoDB documents in 
+			 * an Array structure. 'valueData' is the key/value pairs contained within
+			 * these documents
+			 */
+			var siteData = {
+				data: <%- data %>,
+				keyData: function() {
+					return Object.keys(this.data);
+				},
+				valueData: function() {
+					return Object.values(this.data);
+				},
+				linkArray: []
+			};
+
+			/* Test statements used for the data above 
+			 *
+			 * console.log(siteData.valueData());
+			 * console.log(siteData.valueData()[0]['sites']);
+			 * console.log(siteData.valueData()[0]['sites'].length);
+			 * console.log(siteData.keyData().length);
+			 *
+			 */
+
+			/* For each MongoDB document, push each Object value into the 'linkArray'. 
+			 * Within 'linkArray',the key/value Object pairs of site titles and urls will 
+			 * be pushed. (I plan on adding photos and possibly a bit more info)
+			 */
+			for(let i = 0; i < siteData.keyData().length; i++) {
+				for(let j = 0; j < siteData.valueData()[i]['sites'].length; j++) {
+					siteData.linkArray.push(siteData.valueData()[i]['sites'][j]);
+				}
+			}
+
+			//Function for quickly creating a new element with attributes (if needed)
+			function createNewElement(element, attributes) {
+				if(attributes) {
+					let newElement = document.createElement(element);
+
+					for(var key in attributes) {
+						newElement.setAttribute(key, attributes[key]);
+					}
+
+					return newElement; 
+				}
+				else {
+					let newElement = document.createElement(element);
+
+					return newElement;
+				}
+			}
+
+			/* for each key/value Object pair in 'linkArray', create a new variable 'siteLi' 
+			 * equal to <li> tag with a class attribute of 'site-Li' using the createNewElement() 
+			 * function from above. innerHTML of each new <li> is set equal to the current
+			 * for loop iteration of the 'linkArray' Array. <ul> tag with 'siteData-ul' class
+			 * attribute is selected and 'siteLi' is appended inside. 
+			 */
+			for(let i = 0; i < siteData.linkArray.length; i++) {
+				let siteLi = createNewElement('li', {'class': 'site-Li'});
+					siteLi.innerHTML = siteData.linkArray[i]['title'];
+					document.querySelector('.siteData-ul').appendChild(siteLi);
+			}
+		});
+	</script>
+	<body>
+		<div class="home-container">
+			<header class="headerActivityPage-home">
+				<div class="header">
+					<div class="nameOfSite">
+						<a class="nameOfSite-a" href="/"> 
+							<h1 class="nameOfSite-h1"> News Web-Scraper </h1>
+						</a>
+					</div>
+					<div class="newSets-navBar">
+					</div>
+				</div>
+			</header>
+			<section>
+				<ul class="siteData-ul">
+				</ul>
+			</section>
+		</div>
+	</body>
+</html>
