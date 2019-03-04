@@ -167,7 +167,7 @@ setInterval(function() {
 		console.log('Outside of hours 6:00-24:00, current time => ' + hour);
 	}
 
-}, 1000*86400);
+}, 1000*5400);
 
 /* 1000*86400 = 24 hours
  * 1000*43200 = 12 hours

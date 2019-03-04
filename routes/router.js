@@ -25,7 +25,8 @@ router.get('/', (req, res) => {
 		console.log("Within '/' GET: " + data);
 
 		res.render('pages/index', {
-			data: data
+			data: data,
+			date: timer.getCurrent().date
 		});
 	});
 });

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Righteous|Maven+Pro|Abel|Aleo|Open+Sans+Condensed:300|Oswald|Thasadith|Dosis|Kaushan+Script|Lobster');
 
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
 .home-container {
 	display: flex;
 	flex-direction: column;
@@ -42,7 +47,7 @@
 }
 
 .nameOfSite {
-	margin: 0px 20px 0px 5px;
+	margin: 0px 20px 0px 10px;
 	padding: 0px;
 	margin-right: auto;
 }
@@ -54,25 +59,34 @@
 .nameOfSite-h1 {
 	color: white;
 	font-size: 26px;
-	font-family: 'Kaushan Script', sans-serif;
+	font-family: 'Dosis', sans-serif;
 	font-weight: 600;
 }
 
 .newSets-navBar {
-	margin-right: 5px;
+	margin-right: 10px;
+}
+
+.header-date {
+	color: white;
+	font-family: 'Dosis', sans-serif;
+	font-size: 15px;
 }
 
 .siteData-ul {
+	margin-top: 100px;
+	padding: 0;
 	list-style-type: none;
 	text-align: center;
 }
 
 .site-Li {
 	font-family: 'Dosis', sans-serif;
-	font-size: 14px;
+	font-size: 15px;
 	text-align: center;
 	color: white;
 	border: 1px solid white;
 	margin: 5px;
 	padding: 5px;
+	cursor: pointer;
 }

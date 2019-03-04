@@ -6,6 +6,7 @@
 		<link type="text/css" rel="stylesheet" href="/stylesheets/webscraper.css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	</head>
+	<script src="events-home.js" async></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 			'use strict';
@@ -76,6 +77,67 @@
 			}
 		});
 	</script>
+	<!--<script src="li-iFrame.js" async></script>-->
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			'use strict';
+
+			//Function for quickly creating a new element with attributes (if needed)
+			function createNewElement(element, attributes) {
+				if(attributes) {
+					let newElement = document.createElement(element);
+
+					for(var key in attributes) {
+						newElement.setAttribute(key, attributes[key]);
+					}
+
+					return newElement; 
+				}
+				else {
+					let newElement = document.createElement(element);
+
+					return newElement;
+				}
+			}
+
+			var el = {
+				data: <%- data %>,
+				keyData: function() {
+					return Object.keys(this.data);
+				},
+				valueData: function() {
+					return Object.values(this.data);
+				},
+				allLi: document.querySelectorAll('.site-Li'),
+				allLiArray: function() {
+					return Array.prototype.slice.call(this.allLi);
+				}
+			};
+			console.log(el.valueData()[0]['sites']);
+			//console.log(el.valueData()[0]['sites'][0]['url']);
+			el.allLiArray().forEach(function(li) {
+				li.addEventListener('click', function() {
+					console.log(li);
+					console.log(li.innerHTML.toString());
+
+					for(let i = 0; i < el.keyData().length; i++) {
+						for(let j = 0; j < el.valueData()[i]['sites'].length; j++) {
+							var url = el.valueData()[i]['sites'].some(function(element) {
+								if(element['title'] == li.innerHTML.toString()) {
+									return element['url'];
+								}
+								//return element['title'] == li.innerHTML.toString();
+							});
+							console.log(url);
+						}
+					}
+					console.log(url);
+
+					//let iframe = createNewElement('iframe', {'src'})
+				});
+			});
+		});
+	</script>
 	<body>
 		<div class="home-container">
 			<header class="headerActivityPage-home">
@@ -86,6 +148,7 @@
 						</a>
 					</div>
 					<div class="newSets-navBar">
+						<h1 class="header-date"> <%= date %> </h1>
 					</div>
 				</div>
 			</header>
