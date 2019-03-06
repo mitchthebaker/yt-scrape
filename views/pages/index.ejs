@@ -120,21 +120,27 @@
 					console.log(li);
 					console.log(li.innerHTML.toString());
 
-					for(let i = 0; i < el.keyData().length; i++) {
-						for(let j = 0; j < el.valueData()[i]['sites'].length; j++) {
-							var url = el.valueData()[i]['sites'].some(function(element) {
-								if(element['title'] == li.innerHTML.toString()) {
-									return element['url'];
-								}
-								//return element['title'] == li.innerHTML.toString();
-								console.log(url);
-							});
-							console.log(url);
+					var url = function() {
+						for(let i = 0; i < el.keyData().length; i++) {
+							let url = el.valueData()[i]['sites'].filter(element => element['title'] == li.innerHTML.toString());
+							if(url.length == 0)
+								continue;
+							else
+								return url;
 						}
-					}
-					console.log(url);
-
-					//let iframe = createNewElement('iframe', {'src'})
+					};
+					console.log(url());
+					console.log(url()[0]['url']);
+					
+					let iframe = createNewElement('iframe', {'src': url()[0]['url'], 
+														     'width': '100%', 
+														     'height': '500', 
+														     'frameborder': '0', 
+														     'allowfullscreen': '', 
+														     'sandbox': ''});
+						
+					console.log(iframe);
+					li.appendChild(iframe);
 				});
 			});
 		});

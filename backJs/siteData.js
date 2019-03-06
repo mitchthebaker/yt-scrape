@@ -16,8 +16,9 @@ console.log(timer.getCurrent().time);
 //in the Object literal 'urls' every 24 hours (86400 ms)
 setInterval(function() {
 	var hour = new Date().getHours();
+	console.log(hour);
 
-	if(hour >= 6 && hour < 24) {
+	if(hour >= 5 && hour < 12) {
 		//'urls' is an Object literal holding all of our important scraping variables 
 		const urls = {
 			econ: {
@@ -30,12 +31,6 @@ setInterval(function() {
 				url: 'https://www.apnews.com/apf-intlnews',
 				aClass: 'headline',
 				imgClass: 'LazyImage'
-			},
-			bbc: {
-				url: 'https://www.bbc.com/news/world',
-				spanClass: 'title-link__title-text',
-				imgClass: 'js-image-replace',
-				titleLink: 'title-link'
 			}
 		}
 		
@@ -120,40 +115,6 @@ setInterval(function() {
 							}
 						});
 					}
-					else if(urlsList[i] == urls.bbc.url.trim()) {
-						console.log('---------------------------------');
-						console.log('BBC BELOW');
-						console.log('---------------------------------');
-						$('span.' + urls.bbc.spanClass).each(function(i, elem) {
-							if($('a.' + urls.bbc.titleLink).attr('href').charAt(0) == '/') {
-								data[i] = {
-									title: $(elem).text().trim(),
-							 		url: 'https://www.bbc.com' + $('a.' + urls.bbc.titleLink).attr('href')
-							 	}
-							} 
-							else {
-								data[i] = {
-									title: $(elem).text().trim(),
-							 		url: $('a.' + urls.bbc.titleLink).attr('href')
-							 	}
-							}
-					 	});
-						console.log(data);
-
-						let siteData = new Sites({
-							date: timer.getCurrent().date,
-							sites: data
-						});
-
-						siteData.save((err) => {
-							if(!err) {
-								console.log('siteData upload SUCCESS =>' + urls.bbc.url.trim());
-							}
-							else {
-								console.log('siteData upload FAILURE =>' + urls.bbc.url.trim());
-							}
-						});
-					}
 					else {
 						console.log('There was an unexpected error');
 					}
@@ -167,7 +128,7 @@ setInterval(function() {
 		console.log('Outside of hours 6:00-24:00, current time => ' + hour);
 	}
 
-}, 1000*337);
+}, 1000*21600);
 
 /* 1000*86400 = 24 hours
  * 1000*43200 = 12 hours
@@ -176,4 +137,53 @@ setInterval(function() {
  * 1000*5400 = 1.5 hours
  * 1000*2700 = 0.75 hours
  * 1000*10 = 10 seconds
+ */
+
+ /*
+ *****************************
+Reuders scraper:
+
+,
+		reuters: {
+			url: 'https://www.reuters.com/news/world',
+			divClass: 'ImageStoryTemplate_image-story-container',
+			h2Class: 'FeedItemHeadline_full'
+			//imgClass: I'll have to use .find('img') to locate img 
+		}
+
+else if(urlsList[i] == urls.reuters.url.trim()) {
+					console.log('---------------------------------');
+					console.log('REUTERS BELOW');
+					console.log('---------------------------------');
+					$('h2.' + urls.reuters.h2Class).each(function(i, elem) {
+				 		data[i] = {
+							title: $(elem).find('a').text().trim(),
+					 		url: $(elem).find('a').attr('href')
+					 	}
+				 	});
+					console.log(data);
+
+					let siteData = new Sites({
+						date: timer.getCurrent().date,
+						sites: data
+					});
+
+					siteData.save((err) => {
+						if(!err) {
+							console.log('siteData upload SUCCESS =>' + urls.reuters.url.trim());
+						}
+						else {
+							console.log('siteData upload FAILURE =>' + urls.reuters.url.trim());
+						}
+					});
+				}
+	BBC NEWS:
+	,
+			bbc: {
+				url: 'https://www.bbc.com/news/world',
+				spanClass: 'title-link__title-text',
+				imgClass: 'js-image-replace',
+				titleLink: 'title-link'
+			}
+
  */
