@@ -137,7 +137,7 @@ html, body {
 .li-iframe {
 	border: 2px solid white;
 	border-radius: 2px;
-	background: rgba(204, 204, 204, 0.3);
+	background-color: grey;
 	width: 85%;
 	height: 450px;
 	margin: 20px 5px 5px 5px;
