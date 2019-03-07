@@ -77,7 +77,6 @@
 			}
 		});
 	</script>
-	<!--<script src="li-iFrame.js" async></script>-->
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 			'use strict';
@@ -100,6 +99,10 @@
 				}
 			}
 
+			function hasClass(element, cls) {
+				return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+			}
+
 			var el = {
 				data: <%- data %>,
 				keyData: function() {
@@ -113,12 +116,12 @@
 					return Array.prototype.slice.call(this.allLi);
 				}
 			};
-			console.log(el.valueData()[0]['sites']);
+
 			//console.log(el.valueData()[0]['sites'][0]['url']);
 			el.allLiArray().forEach(function(li) {
 				li.addEventListener('click', function() {
-					console.log(li);
-					console.log(li.innerHTML.toString());
+					//console.log(li);
+					//console.log(li.innerHTML.toString());
 
 					var url = function() {
 						for(let i = 0; i < el.keyData().length; i++) {
@@ -129,20 +132,62 @@
 								return url;
 						}
 					};
-					console.log(url());
-					console.log(url()[0]['url']);
+					//console.log(url());
+					//console.log(url()[0]['url']);
 					
+					let iframeDiv = createNewElement('div', {'class': 'iframe-div'});
+					let iframeClose = createNewElement('button', {'class': 'iframe-close'});
+						iframeClose.innerHTML = 'Close x';
+						iframeDiv.appendChild(iframeClose);
 					let iframe = createNewElement('iframe', {'src': url()[0]['url'], 
-														     'width': '100%', 
-														     'height': '500', 
+															 'class': 'li-iframe',
+														     //'width': '100%', 
+														     //'height': '500', 
 														     'frameborder': '0', 
 														     'allowfullscreen': '', 
 														     'sandbox': ''});
-						
-					console.log(iframe);
-					li.appendChild(iframe);
+						iframeDiv.appendChild(iframe);
+						//console.log(iframe);
+					
+					if(!(hasClass(iframe, 'li-iframe-visible'))) {
+						console.log("class 'li-iframe-visible added");
+						iframeDiv.classList.add('li-iframe-visible');
+					}
+					document.querySelector('.home-container').appendChild(iframeDiv);
+
+					var i = {
+				allLi: document.querySelectorAll('.site-Li'),
+				allLiArray: function() {
+					return Array.prototype.slice.call(this.allLi);
+				},
+				iframeClose: document.querySelector('.iframe-close'),
+				iframe: document.querySelector('.li-iframe'),
+				iframeDiv: document.querySelector('.iframe-div')
+			};
+
+			function hasClass(element, cls) {
+				return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+			}
+
+			iframeClose.addEventListener('click', function() {
+				console.log('within listener');
+				if(!(hasClass(iframeDiv, 'li-iframe-visible'))) {
+					console.log("class 'li-iframe-visible added");
+					iframeDiv.classList.add('li-iframe-visible');
+				}
+				else {
+					console.log("class 'li-iframe-visible' removed");
+
+					iframeDiv.classList.remove('li-iframe-visible');
+				}
+			});
 				});
 			});
+		});
+	</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			
 		});
 	</script>
 	<body>
@@ -159,7 +204,7 @@
 					</div>
 				</div>
 			</header>
-			<section>
+			<section class="page-section">
 				<ul class="siteData-ul">
 				</ul>
 			</section>

@@ -15,20 +15,20 @@ console.log(timer.getCurrent().time);
 //setInterval() is used so that data is scraped from the websites contained
 //in the Object literal 'urls' every 24 hours (86400 ms)
 setInterval(function() {
-	var hour = new Date().getHours();
-	console.log(hour);
-
-	if(hour >= 5 && hour < 12) {
+	
 		//'urls' is an Object literal holding all of our important scraping variables 
 		const urls = {
 			econ: {
 				url: 'https://www.economist.com/international/',
+				articleClass: 'teaser',
 				aClass: 'teaser__link',
 				spanClass: 'flytitle-and-title__title',
-				imgClass: 'component-image__img'
+				imgClass: 'component-image__img',
+				imgDiv: 'component-image'
 			},
 			apnews: {
 				url: 'https://www.apnews.com/apf-intlnews',
+				FeedCard: 'FeedCard',
 				aClass: 'headline',
 				imgClass: 'LazyImage'
 			}
@@ -85,17 +85,17 @@ setInterval(function() {
 						console.log('---------------------------------');
 						console.log('APNEWS BELOW');
 						console.log('---------------------------------');
-						$('a.' + urls.apnews.aClass).each(function(i, elem) {
-							if($('a.' + urls.apnews.aClass).attr('href').charAt(0) == '/') {
+						$('div.' + urls.apnews.FeedCard).each(function(i, elem) {
+							if($('div.' + urls.apnews.FeedCard).find('a.' + urls.apnews.aClass).attr('href').charAt(0) == '/') {
 								data[i] = {
 									title: $(elem).find('h1').text().trim(),
-							 		url: 'https://www.apnews.com' + $(elem).attr('href')
+							 		url: 'https://www.apnews.com' + $(elem).find('a.' + urls.apnews.aClass).attr('href')
 							 	}
 							} 
 							else {
 								data[i] = {
 									title: $(elem).find('h1').text().trim(),
-							 		url: $(elem).attr('href')
+							 		url: 'https://www.apnews.com' + $(elem).find('a.' + urls.apnews.aClass).attr('href')
 							 	}
 							}
 					 	});
@@ -123,12 +123,8 @@ setInterval(function() {
 				console.log(err);
 			});
 		}
-	}
-	else {
-		console.log('Outside of hours 6:00-24:00, current time => ' + hour);
-	}
 
-}, 1000*21600);
+}, 1000*60);
 
 /* 1000*86400 = 24 hours
  * 1000*43200 = 12 hours
@@ -185,5 +181,16 @@ else if(urlsList[i] == urls.reuters.url.trim()) {
 				imgClass: 'js-image-replace',
 				titleLink: 'title-link'
 			}
+
+
+
+			var hour = new Date().getHours();
+	console.log(hour);
+
+	if(hour >= 5 && hour < 12) {
+	}
+	else {
+		console.log('Outside of hours 6:00-24:00, current time => ' + hour);
+	}
 
  */
