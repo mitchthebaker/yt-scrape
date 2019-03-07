@@ -7,6 +7,7 @@ module.exports = {
 		let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 	
 		return {
+			today: today,
 			date: date,
 			time: time
 		}

@@ -22,7 +22,6 @@ router.get('/', (req, res) => {
 		if(err) {
 			return next(err);
 		}
-		console.log("Within '/' GET: " + data);
 
 		res.render('pages/index', {
 			data: data,
@@ -78,44 +77,6 @@ axios.get(urlList[0])
     .catch(error => {
 		console.log(error);
 	});
-
-*****************************
-Reuders scraper:
-
-,
-		reuters: {
-			url: 'https://www.reuters.com/news/world',
-			divClass: 'ImageStoryTemplate_image-story-container',
-			h2Class: 'FeedItemHeadline_full'
-			//imgClass: I'll have to use .find('img') to locate img 
-		}
-
-else if(urlsList[i] == urls.reuters.url.trim()) {
-					console.log('---------------------------------');
-					console.log('REUTERS BELOW');
-					console.log('---------------------------------');
-					$('h2.' + urls.reuters.h2Class).each(function(i, elem) {
-				 		data[i] = {
-							title: $(elem).find('a').text().trim(),
-					 		url: $(elem).find('a').attr('href')
-					 	}
-				 	});
-					console.log(data);
-
-					let siteData = new Sites({
-						date: timer.getCurrent().date,
-						sites: data
-					});
-
-					siteData.save((err) => {
-						if(!err) {
-							console.log('siteData upload SUCCESS =>' + urls.reuters.url.trim());
-						}
-						else {
-							console.log('siteData upload FAILURE =>' + urls.reuters.url.trim());
-						}
-					});
-				}
 
 */
 
