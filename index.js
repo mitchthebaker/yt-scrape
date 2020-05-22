@@ -1,4 +1,4 @@
-//Require express
+//Require expres
 const express = require('express');
 const path = require('path');
 
@@ -10,7 +10,7 @@ const uriString = process.env.MONGODB_URI || 'mongodb://localhost/web-scraper';
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-//Connect to MongoDB through mongoose 
+//Connect to MongoDB through mongoose
 mongoose.connect(uriString, (err,res) => {
 	if(err) {
 		console.log('ERROR connecting to: ' + uriString + '.' + err);
@@ -32,7 +32,7 @@ db.once('open', function() {
 var routes = require('./routes/router');
 app.use('/', routes);
 
-//Set correct paths and view engine to .ejs 
+//Set correct paths and view engine to .ejs
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/scripts')));
 app.set('views', path.join(__dirname, 'views'));
