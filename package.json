@@ -19,7 +19,7 @@
   "author": "Mitchel Baker",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.2",
     "connect-mongo": "^2.0.3",
     "ejs": "^2.6.1",
